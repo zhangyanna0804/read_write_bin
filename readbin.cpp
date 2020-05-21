@@ -1,5 +1,6 @@
+
 #include <iostream>
-#include <string.h>
+#include <cstring>
 #include <fstream>
 #include <stdio.h>
 #include <vector>
@@ -31,6 +32,24 @@ int get_file_size(char *filename)
     return size;
 }
 
+void readTxt(string file)
+{
+    fstream infile; 
+   // infile.open(file.data());   //将文件流对象与文件连接起来 
+   // assert(infile.is_open());   //若失败,则输出错误消息,并终止程序运行 
+
+    infile.open("C.txt", std::ios::app);
+    if (!infile.is_open()) {
+        printf("file openfile\n");
+    }
+    string s;
+    while(getline(infile,s))
+    {
+        cout<<s<<endl;
+    }
+    infile.close();             //关闭文件输入流 
+}
+
 int main(int argc, char *argv[])
 {
 #if 0
@@ -49,25 +68,23 @@ int main(int argc, char *argv[])
     fstream f_txt;
     char *srcbin = argv[1];
     int size = file_size(srcbin);
-    float val[size / 4];
-
-    f_txt.open("pic.txt", std::ios::app);
+    unsigned char val[size];
+    unsigned char data[size];
+#if 0
+    f_txt.open("C.txt", std::ios::app);
     if (!f_txt.is_open()) {
         printf("file openfile\n");
         return -1;
     }
-    if ((infile = fopen(srcbin, "rb")) == NULL) {
+    if ((infile = f4yyopen(srcbin, "rb")) == NULL) {
         printf("file open failed \n");
         exit(-1);
     }
-    
-    fread(&val, 1, sizeof(val), infile);
-    for (int i = 0; i < 2048; i++) {
-        printf("val[%d]: %f\n", i, val[i]);
-        f_txt << val[i] << endl;
-    }
-    f_txt.close();
-
+#endif    
+	readTxt("C.txt");
+    //fwrite();
+    //f_txt.close();
+     
     return 0;
 }
 
